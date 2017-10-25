@@ -776,6 +776,18 @@ describe('validation tests', () => {
         })
         .argv
     })
+
+    it('should allow nested objects when option key uses dot notation', () => {
+      const args = yargs('--foo.bar baz')
+        .option('foo.bar', {
+          demandOption: true
+        })
+        .fail((msg) => {
+          expect.fail()
+        })
+        .argv
+      args.foo.bar.should.equal('baz')
+    })
   })
 
   describe('demandCommand', () => {
